@@ -64,13 +64,6 @@
 #include <memory>
 #include <string>
 
-#include "opencv2/gpu/gpu.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-#include "opencv2/imgproc/imgproc_c.h"
-#include "opencv2/calib3d/calib3d.hpp"
-#include "opencv2/core/internal.hpp"
-#include "opencv2/video/video.hpp"
-
 #if defined WIN32 || defined WINCE
     #include <windows.h>
     #undef small
@@ -81,6 +74,7 @@
 
 #define OPENCV_GPU_UNUSED(x) (void)x
 
+// Needs to be defined before including OpenCV headers, otherwise there is a conflict with CUDA
 #ifdef HAVE_CUDA
     #include <cuda_runtime.h>
     #include <npp.h>
@@ -136,6 +130,13 @@
     static inline void throw_nogpu() { CV_Error(CV_GpuNotSupported, "The library is compiled without GPU support"); }
 
 #endif /* defined(HAVE_CUDA) */
+
+#include "opencv2/gpu/gpu.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/imgproc/imgproc_c.h"
+#include "opencv2/calib3d/calib3d.hpp"
+#include "opencv2/core/internal.hpp"
+#include "opencv2/video/video.hpp"
 
 
 namespace cv { namespace gpu
